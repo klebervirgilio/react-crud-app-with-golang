@@ -1,0 +1,3 @@
+.vscode
+pkg/http/web/app/dist
+deploy/front-end/dist
