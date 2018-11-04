@@ -24,24 +24,25 @@ const styles = theme => ({
 });
 
 class GithubRepo extends React.Component {
+  handleClick = (event) =>  {
+    this.props.onKudo(this.props.repo)
+  }
   render() {
     const { classes } = this.props;
 
     return (
       <Card className={classes.card}>
         <CardHeader
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={this.props.repo.full_name}
         />
         <CardContent>
-          <Typography component="p">
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          <Typography component="p" style={{minHeight: '90px', overflow: 'scroll'}}>
+            {this.props.repo.description}
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon color="primary" />
+          <IconButton aria-label="Add to favorites" onClick={this.handleClick}>
+            <FavoriteIcon color={this.props.isKudo ? "secondary" : "primary"} />
           </IconButton>
         </CardActions>
       </Card>
