@@ -41,7 +41,7 @@ class GithubRepo extends React.Component {
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
+            <FavoriteIcon color="primary" />
           </IconButton>
         </CardActions>
       </Card>

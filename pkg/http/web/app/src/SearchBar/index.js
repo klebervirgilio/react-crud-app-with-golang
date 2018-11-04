@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
+import Button from '@material-ui/core/Button';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import { withAuth } from '@okta/okta-react';
 
 const styles = theme => ({
   root: {
@@ -67,7 +69,29 @@ const styles = theme => ({
   }
 });
 
-class PrimarySearchAppBar extends React.Component {
+class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.logout = this.logout.bind(this);
+  }
+
+  async checkAuthentication() {
+    const authenticated = await this.props.auth.isAuthenticated();
+    if (authenticated !== this.state.authenticated) {
+      this.setState({ authenticated });
+    }
+  }
+
+  async logout(e) {
+    e.preventDefault();
+    this.props.auth.logout('/');
+  }
+
+  async componentDidMount() {
+    this.checkAuthentication();
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -88,6 +112,7 @@ class PrimarySearchAppBar extends React.Component {
               />
             </div>
             <div className={classes.grow} />
+            <Button onClick={this.logout} color="inherit">Logout</Button>
           </Toolbar>
         </AppBar>
       </div>
@@ -95,8 +120,8 @@ class PrimarySearchAppBar extends React.Component {
   }
 }
 
-PrimarySearchAppBar.propTypes = {
+SearchBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+export default withStyles(styles)(withAuth(SearchBar));

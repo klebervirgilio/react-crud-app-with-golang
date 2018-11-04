@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
+
 import GithubRepo from "../GithubRepo"
-import { Paper } from '@material-ui/core';
+import SearchBar from "../SearchBar"
 
 const styles = theme => ({
   root: {
@@ -36,6 +36,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className={styles.root}>
+        <SearchBar auth={this.props.auth} />
          <Tabs
           value={this.state.value}
           onChange={this.handleChange}
