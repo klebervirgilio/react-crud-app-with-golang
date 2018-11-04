@@ -4,11 +4,13 @@ import SwipeableViews from 'react-swipeable-views';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
+import { withAuth } from '@okta/okta-react';
 
 import GithubRepo from "../GithubRepo"
 import SearchBar from "../SearchBar"
 
 import githubClient from '../githubClient'
+import APIClient from '../apiClient'
 
 const styles = theme => ({
   root: {
@@ -25,9 +27,18 @@ const styles = theme => ({
 class Home extends React.Component {
   state = {
     value: 0,
-    repos: [{id: 1, full_name: 'foo', description: 'lorem....'}],
-    kudos: [{id: 2, full_name: 'bar', description: 'lorem....'}]
+    repos: [],
+    kudos: []
   };
+
+  async componentDidMount() {
+    const accessToken = await this.props.auth.getAccessToken()
+    this.apiClient = new APIClient(accessToken);
+    this.apiClient.getKudos().then((data) => 
+      this.setState({...this.state, kudos: data})
+    );
+    
+  }
 
   handleTabChange = (event, value) => {
     this.setState({ value });
@@ -39,10 +50,22 @@ class Home extends React.Component {
 
   resetRepos = repos => this.setState({ ...this.state, repos })
 
-  isKudo = repo => this.state.kudos.includes(repo)
+  isKudo = repo => this.state.kudos.find(r => r.id == repo.id)
   
   onKudo = (repo) => {
-    if (this.state.kudos.find(r => r.id === repo.id)) {
+    this.updateBackend(repo);
+  }
+
+  updateBackend = (repo) => {
+    if (this.isKudo(repo)) {
+      this.apiClient.deleteKudo(repo);
+    } else {
+      this.apiClient.createKudo(repo);
+    }
+    this.updateState(repo);
+  }
+  updateState = (repo) => {
+    if (this.isKudo(repo)) {
       this.setState({
         ...this.state,
         kudos: this.state.kudos.filter( r => r.id !== repo.id )
@@ -70,6 +93,7 @@ class Home extends React.Component {
   }
   
   renderRepos = (repos) => {
+    if (!repos) { return [] }
     return repos.map((repo) => {
       return (
         <Grid item xs={12} md={3} key={repo.id}>
@@ -111,4 +135,4 @@ class Home extends React.Component {
   }
 }
 
-export default withStyles(styles)(Home);
+export default withStyles(styles)(withAuth(Home));

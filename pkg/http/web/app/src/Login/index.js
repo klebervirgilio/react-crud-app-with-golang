@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom'
 import { withAuth } from '@okta/okta-react';
 
 class Login extends React.Component {
@@ -18,7 +19,7 @@ class Login extends React.Component {
   }
 
   async componentDidMount() {
-    this.checkAuthentication();
+    this.checkAuthentication()
   }
 
   async login(e) {
@@ -26,11 +27,15 @@ class Login extends React.Component {
   }
 
   render() {
-    return (
-      <div style={{height: '100vh', display: 'flex', 'align-items': 'center', 'justify-content': 'center'}}>
-        <Button variant="contained" color="primary" onClick={this.login}>Login with Okta</Button>
-      </div>
-    );
+    if (this.state.authenticated) {
+      return <Redirect to='/home' />
+    } else {
+      return (
+        <div style={{height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <Button variant="contained" color="primary" onClick={this.login}>Login with Okta</Button>
+        </div>
+      )
+    }
   }
 }
 
