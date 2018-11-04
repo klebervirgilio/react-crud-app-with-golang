@@ -6,8 +6,8 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	"github.com/klebervirgilio/vue-crud-app-with-golang/pkg/core"
-	. "github.com/klebervirgilio/vue-crud-app-with-golang/pkg/storage"
+	"github.com/klebervirgilio/react-crud-app-with-golang/pkg/core"
+	. "github.com/klebervirgilio/react-crud-app-with-golang/pkg/storage"
 )
 
 var _ = Describe("Mongo", func() {

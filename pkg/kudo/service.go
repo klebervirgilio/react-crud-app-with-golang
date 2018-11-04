@@ -3,7 +3,7 @@ package kudo
 import (
 	"strconv"
 
-	"github.com/klebervirgilio/vue-crud-app-with-golang/pkg/core"
+	"github.com/klebervirgilio/react-crud-app-with-golang/pkg/core"
 )
 
 type GitHubRepo struct {

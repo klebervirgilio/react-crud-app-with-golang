@@ -7,7 +7,7 @@ import (
 
 	"github.com/globalsign/mgo"
 	"github.com/globalsign/mgo/bson"
-	"github.com/klebervirgilio/vue-crud-app-with-golang/pkg/storage"
+	"github.com/klebervirgilio/react-crud-app-with-golang/pkg/storage"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

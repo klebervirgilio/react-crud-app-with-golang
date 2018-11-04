@@ -7,8 +7,8 @@ import (
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/klebervirgilio/vue-crud-app-with-golang/pkg/core"
-	"github.com/klebervirgilio/vue-crud-app-with-golang/pkg/kudo"
+	"github.com/klebervirgilio/react-crud-app-with-golang/pkg/core"
+	"github.com/klebervirgilio/react-crud-app-with-golang/pkg/kudo"
 )
 
 type Service struct {

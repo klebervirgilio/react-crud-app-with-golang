@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	web "github.com/klebervirgilio/vue-crud-app-with-golang/pkg/http"
-	"github.com/klebervirgilio/vue-crud-app-with-golang/pkg/storage"
+	web "github.com/klebervirgilio/react-crud-app-with-golang/pkg/http"
+	"github.com/klebervirgilio/react-crud-app-with-golang/pkg/storage"
 )
 
 func main() {
