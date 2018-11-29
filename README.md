@@ -34,7 +34,7 @@ DELETE /kudos/:id
 
 Start creating a directory within the Golang workspace, also known as GOPATH.
 
-```
+```bash
 mkdir -p $GOPATH/src/github.com/{YOUR_GITHUB_USERNAME}/kudo-oos
 cd $GOPATH/src/github.com/{YOUR_GITHUB_USERNAME}/kudo-oos
 ```
@@ -47,14 +47,14 @@ Your REST API will have 2 core structures, they are `Kudo` and `Repository`. `Ku
 
 Go ahead and run the following commands:
 
-```
+```bash
 mkdir -p pkg/core
 touch pkg/core/{kudo, repository}.go
 ```
 
 The above commands will create the `pkg` directory with another directory within it called `core`  then, the second command will create two files: `kudo.go` and `repository.go`. Copy and paste the Kudo structure within the `kudo.go` file.
 
-```
+```go
 package core
 
 // Kudo represents a oos kudo.
@@ -71,7 +71,7 @@ type Kudo struct {
 
 Then, copy and paste the `Repository` interface within the `repository.go` file.
 
-```
+```go
 package core
 
 
@@ -93,13 +93,13 @@ Great! You have now your first two files in place. The `Repository` interface by
 
 Create `docker-compose.yml` 
 
-```
+```bash
 touch docker-compose.yml
 ```
 
 And copy and paste the following content in it:
 
-```
+```yaml
 version: '3'
 services:
   mongo:
@@ -114,7 +114,7 @@ services:
 
 All you have to do now to spin up a MongoDB container is:
 
-```
+```bash
 docker-compose up
 ```
 
@@ -122,13 +122,13 @@ With MongoDB up and running you are ready to work `Repository` interface impleme
 
 Start by creating a directory where all persistence related files should sit, a suggestion would be: `storage`.
 
-```
+```bash
 mkdir -p pkg/storage
 ```
 
 Then, create the file that will hold the MongoDB repository implementation:
 
-```
+```bash
 touch -p pkg/storage/mongo.go
 ```
 
@@ -136,14 +136,14 @@ You will need the Golang MongoDB diver, this can be installed in different ways,
 
 Then, run the command to initialize dep and install the MongoDB driver [`mgo`](https://github.com/globalsign/mgo).
 
-```
+```bash
 dep init
 dep ensure -add github.com/globalsign/mgo
 ```
 
 With `mgo` properly installed, copy and paste the following content in the `pkg/storage/mongo.go` file.
 
-```
+```bash
 package storage
 
 import (
@@ -277,19 +277,19 @@ This service will should be placed in a directory that semantically represents i
 
 Run the following command to create the directory:
 
-```
+```bash
 mkdir -p pkg/kudo
 ```
 
 Then, create the service file
 
-```
+```bash
 touch pkg/kudo/service.go
 ```
 
 And finally, copy and paste the following content in it:
 
-```
+```go
 package kudo
 
 import (
@@ -371,7 +371,7 @@ At this point, you’ve covered 70% of the back-end. You are ready to implement 
 
 You can start by creating a directory where HTTP related files should be placed.
 
-```
+```bash
 mkdir -p pkg/http
 ```
 
@@ -387,20 +387,20 @@ Within this directory, you will have 2 files, `handlers.go` and `middlewares.go`
 
 Now that know the role of each middleware, you need to write them. Start by installing the the Okta JWT verifier and CORS dependencies :
 
-```
+```bash
 dep ensure -add github.com/okta/okta-jwt-verifier-golang
 dep ensure -add github.com/rs/cors
 ```
 
 Then create a file named middlewares.go.
 
-```
+```bash
 touch pkg/http/middlewares.go
 ```
 
 Then copy and paste the following content int it:
 
-```
+```go
 package http
 
 import (
@@ -478,7 +478,7 @@ The HTTP handlers should be easy now, since you have already done the important 
 
 Create a file for the handlers:
 
-```
+```bash
 touch pkg/http/handlers.go
 ```
 
@@ -494,13 +494,13 @@ Each one of the routes above represents a handler, in order to easily route inco
 
 Run the command to Install [httprouter library](https://github.com/julienschmidt/httprouter)
 
-```
+```bash
 dep ensure -add github.com/julienschmidt/httprouter
 ```
 
 Then, copy and paste the following content in `pkg/http/handlers.go` file:
 
-```
+```go
 package http
 
 import (
@@ -605,19 +605,19 @@ The Golang community will often place commands similar to this one in a `cmd` di
 
 Create a folder in the root of the project called `cmd`.
 
-```
+```bash
 mkdir cmd
 ```
 
 Then create a file named main.go 
 
-```
+```bash
 touch cmd/main.go
 ```
 
 And place the following content in it:
 
-```
+```go
 package main
 
 import (
@@ -651,26 +651,26 @@ Installing [`create-react-app`](https://github.com/facebook/create-react-app)  i
 
 To install `create-react-app`, run the command:
 
-```
+```bash
 yarn global add create-react-app
 ```
 
 You will need a directory to place your React application, go ahead and create the `web` directory within the `pkg/http` folder.
 
-```
+```bash
 mkdir -p pkg/http/web
 ```
 
 Now, create a React application:
 
-```
+```bash
 cd pkg/http/web
 create-react-app app
 ```
 
 `create-react-app` might take a few minutes to generate the boilerplate application. Go to the recently created `app` directory and run `npm start`
 
-```
+```bash
 cd app
 npm start
 ```
@@ -682,7 +682,7 @@ Your goal now is to use [Material Design](https://material.io/design/) to create
 
 Run the following commands to install what you will need from [Material Design](https://material.io/design/).
 
-```
+```bash
 yarn add @material-ui/core
 yarn add @material-ui/icons
 ```
@@ -724,31 +724,31 @@ An  Authenticated User should be able to see in different tabs his/her previous 
 
 To Install `react-router` run the command:
 
-```
+```bash
 yarn add react-router-dom
 ```
 
 And to install the [Okta React SDK](https://developer.okta.com/code/react) run the command:
 
-```
+```bash
 yarn add @okta/okta-react
 ```
 
 Now, go head and create your Main component.
 
-```
+```bash
 mkdir  -p app/src/Main
 ```
 
 Then, within the Main directory create a file named `index.js`.
 
-```
+```bash
 touch app/src/Main/index.js
 ```
 
 And copy and paste the following content into the recently created file:
 
-```
+```javascript
 import React, { Component } from 'react';
 import { Switch, Route, } from 'react-router-dom'
 import { Security, ImplicitCallback, SecureRoute } from '@okta/okta-react';
@@ -792,19 +792,19 @@ Your are now ready to create the Login component, as mentioned previously, this 
 
 Inside the directory `app`, you will find a directory called `src` which stands for  source. Go ahead and create a directory named Login.
 
-```
+```bash
 mkdir  -p app/src/Login
 ```
 
 Then, within the Login directory create a file named `index.js`.
 
-```
+```bash
 touch app/src/Login/index.js
 ```
 
 And copy and paste the following content into the file:
 
-```
+```javascript
 import React from 'react'
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router-dom'
@@ -868,19 +868,19 @@ You can create a component to represent an open source in both “Kudos” and �
 
 Go ahead and create a directory called “GithubRepo”
 
-```
+```bash
 mkdir -p app/src/GithubRepo
 ```
 
 Then, within the recently created directory, create a file named `index.js`
 
-```
+```bash
 touch -p app/src/GithubRepo/index.js
 ```
 
 And copy and paste the following content in it
 
-```
+```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -945,19 +945,19 @@ The next component you will need is the `SearchBar`. It will have two responsibi
 
 Go ahead and create a directory called “SearchBar”
 
-```
+```bash
 mkdir -p app/src/SearchBar
 ```
 
 Then, within the recently created directory, create a file named `index.js`
 
-```
+```bash
 touch -p app/src/SearchBar/index.js
 ```
 
 And copy and paste the following content in it
 
-```
+```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -1084,7 +1084,7 @@ Now it’s time to work on the `Home` component. One of the dependencies the com
 
 To install react-swipeable-views, run the command:
 
-```
+```bash
 yarn add react-swipeable-views
 ```
 
@@ -1092,13 +1092,13 @@ Great, you will need to make HTTP calls to your Golang REST API as well as to th
 
 Go ahead create a file named `githubClient.js`
 
-```
+```bash
 touch app/src/githubClient.js
 ```
 
 Then, copy and paste the following content in it:
 
-```
+```javascript
 export default {
  getJSONRepos(query) {
    return fetch('https://api.github.com/search/repositories?q=' + query).then(response => response.json());
@@ -1110,13 +1110,13 @@ Now, you need to create a HTTP client to make HTTP calls to the Golang REST API 
 
 Go ahead and create a file named `apiClient.js`
 
-```
+```bash
 touch app/src/githubClient.js
 ```
 
 Then, copy and paste the following content in it:
 
-```
+```javascript
 import axios from 'axios';
 
 const BASE_URI = 'http://localhost:4433';
@@ -1166,19 +1166,19 @@ For the sake of simplicity, you will put everything together in the `Home` compo
 
 Go ahead and create a directory called “Home”
 
-```
+```bash
 mkdir -p app/src/Home
 ```
 
 Then, within the recently created directory, create a file named `index.js`
 
-```
+```bash
 touch -p app/src/Home/index.js
 ```
 
 And copy and paste the following content in it
 
-```
+```javascript
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import SwipeableViews from 'react-swipeable-views';
